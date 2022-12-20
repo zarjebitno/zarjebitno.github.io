@@ -26,6 +26,7 @@ main {
   nav {
     width: 4.375rem;
     background: var(--black);
+    z-index: 50;
 
     ul {
       padding-inline: 0;
@@ -54,7 +55,7 @@ main {
 
         svg {
           width: 100%;
-          height: auto;
+          height: 100%;
 
           path {
             fill: #fff;
@@ -64,13 +65,54 @@ main {
     }
 
     .social {
-      width: 35%;
+      width: 43%;
       height: auto;
 
       svg {
         width: 100%;
         height: 100%;
+
+        path {
+          transition: all .2s .1s;
+        }
       }
+
+      &:hover {
+        &:last-of-type svg path {
+          fill: var(--linkedin)
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 5rem;
+      bottom: 0;
+
+      ul {
+        display: flex;
+        width: 80%;
+
+        li + li {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+.errors {
+  .tooltip {
+    transform: translateX(120%);
+    opacity: .2;
+    transition: transform .5s, opacity 2s;
+
+    &:nth-child(2) { transition-delay: .1s; }
+    &:nth-child(3) { transition-delay: .2s; }
+
+    &.error {
+      transform: translateX(0);
+      opacity: 1;
     }
   }
 }
@@ -78,15 +120,29 @@ main {
 #wrapper {
  width: calc(100% - 4.375rem);
  margin-left: auto;
+
+ @media (max-width: 768px) {
+  width: 100%;
+ }
 }
 
 #wrapper > section {
   min-height: 100vh;
   background: var(--silver);
   padding: 2rem;
+
+  @media (max-width: 1280px) {
+    min-height: calc(100vh - 7rem);
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+  }
 }
 
 section.hero_container {
+  overflow-x: hidden;
+
   .plane-container {
     transform: translateX(-100%);
 
@@ -99,14 +155,19 @@ section.hero_container {
     }
 
     svg {
-      width: 10rem;
+      // width: 10rem;
+      width: 20rem;
       height: auto;
+
+      @media (max-width: 1600px) {
+        width: 10rem;
+      }
     }
   }
 
-  h1.title {
-    padding-top: 7rem;
-  }
+  // h1.title {
+  //   padding-top: 7rem;
+  // }
 
   .hero_paragraph {
     margin-top: 3rem;
@@ -116,9 +177,14 @@ section.hero_container {
 /* hero animation start */
 
 #hero_animation {
-  width: 50%;
+  // width: 50%;
   height: 80vh;
   position: relative;
+
+  @media (max-width: 1280px) {
+    height: auto;
+    aspect-ratio: 2.5;
+  }
 
   & > .shape {
     height: 30%;
@@ -368,15 +434,18 @@ section.hero_container {
 // hero animation end
 
 .portfolio_container .projects_inner img {
-  width: 15rem;
+  // width: 15rem;
+  width: 25%;
   height: 30rem;
   object-fit: cover;
   object-position: left;
   transition: width .7s ease-in-out;
   user-select: none;
+  // pointer-events: none;
 
   &.open {
-    width: 50rem;
+    // width: 50rem;
+    width: 100%;
   }
 }
 
@@ -433,14 +502,39 @@ section.hero_container {
 section.contact {
   overflow-x: hidden;
 
+  @media (max-width: 768px) {
+    padding-bottom: 7rem !important;
+  }
+
   .container {
-    width: 60%;
+    max-width: 60%;
+    min-width: 1024px;
     margin: auto;
+
+    @media (max-width: 1200px) {
+      min-width: unset;
+      max-width: unset;
+    }
 
     .text-wrap {
       h2 {
         transform: translateY(-50px);
         opacity: 0.4;
+        transition: transform 1s, opacity .5s;
+
+        @media (max-width: 600px) {
+          font-size: 5rem;
+        }
+
+        &.isVisible {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .content-wrap {
+        transform: translateY(20px);
+        opacity: 0;
         transition: transform 1s, opacity .5s;
 
         &.isVisible {
@@ -449,21 +543,11 @@ section.contact {
         }
       }
 
-      p {
-        &:nth-child(even) {
-          transform: translateX(2rem)
-        }
-
-        &:nth-child(odd) {
-          transform: translateX(-2rem)
-        }
-
-        transition: transform .7s, opacity .5s;
-        opacity: .4;
-
-        &.isVisible {
-          transform: translateX(0);
-          opacity: 1;
+      p,
+      a {
+        @media (max-width: 600px) {
+          font-size: 1rem;
+          line-height: 1.25rem;
         }
       }
     }
@@ -495,6 +579,12 @@ section.contact {
       border: 1px solid var(--light-slate-gray);
       resize: none;
       z-index: 5;
+      transition: border-color .3s;
+
+      &.error {
+        border-color: #c53030;
+        animation: shakeUpPepsi .3s;
+      }
     }
 
     transition: opacity .7s, animation;
@@ -601,10 +691,6 @@ section.contact {
   45% {
     transform: translate(55%, 35%)
   }
-
-  // 85% {
-  //   transform: translate(75%, 35%)
-  // }
 
   100% {
     transform: translate(80%, 50%);

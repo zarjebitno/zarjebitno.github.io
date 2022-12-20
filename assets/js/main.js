@@ -1,3 +1,4 @@
+// hero animation start
 setInterval(() => {
   animateHeroSection()
 }, 1000);
@@ -33,13 +34,26 @@ function animateHeroSection() {
   
   prev = index;
 }
+// hero animation end
 
 const projectImages = document.querySelectorAll('.projects_wrapper img')
 const projectControls = document.querySelectorAll('.projects_controls div')
 const heroAnimationWrap = document.getElementById("hero_animation")
+const skills = document.querySelectorAll('.skill')
+const sections = document.querySelectorAll('section')
+const navItems = document.querySelectorAll('nav li')
+const contactParticles = document.querySelectorAll('#contact .text-wrap h2, #contact .text-wrap .content-wrap')
+const toWatch = [...skills, ...sections, ...contactParticles]
+const reachOutLink = document.querySelector('a.reachout')
+const reachOutForm = document.querySelector('form')
 
+// add event listeners
 projectImages.forEach(i => i.addEventListener('click', handleProjectClick))
 projectControls.forEach(b => b.addEventListener('click', handleProjectControlClick))
+navItems.forEach(navItem => navItem.addEventListener('click', scrollToTop))
+// add animation delay to components
+skills.forEach((s, i) => { s.style.transitionDelay = `${i * .05}s`})
+contactParticles.forEach((s, i) => { s.style.transitionDelay = `${i * .1}s`})
 
 function handleProjectClick({target}) {
   let isOpen = false
@@ -75,28 +89,13 @@ function handleProjectControlClick(e) {
   }
 }
 
-const skills = document.querySelectorAll('.skill')
-const sections = document.querySelectorAll('section')
-const navItems = document.querySelectorAll('nav li')
-const contactParticles = document.querySelectorAll('#contact .text-wrap h2, #contact .text-wrap p')
-const toWatch = [...skills, ...sections, ...contactParticles]
-
-navItems.forEach(navItem => navItem.addEventListener('click', scrollToTop))
-
 function scrollToTop(element) {
   const scrollToDiv = this.dataset ? this.dataset.scrollto : element
 
   document.getElementById(scrollToDiv).scrollIntoView({behavior: 'smooth'})
 }
 
-skills.forEach((s, i) => {
-  s.style.transitionDelay = `${i * .05}s`
-})
-
-contactParticles.forEach((s, i) => {
-  s.style.transitionDelay = `${i * .1}s`
-})
-
+// init intersection observer
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(entry.target.tagName == 'SECTION') {
@@ -105,8 +104,10 @@ const observer = new IntersectionObserver(entries => {
     entry.target.classList.toggle('isVisible', entry.isIntersecting)
   })
 }, {
-  threshold: 1
+  threshold: 0.25
 })
+
+toWatch.forEach(s => observer.observe(s))
 
 function highlightNavItem(section) {
   const order = parseInt(section.target.dataset.order)
@@ -116,13 +117,6 @@ function highlightNavItem(section) {
   })
 }
 
-toWatch.forEach(s => observer.observe(s))
-// sections.forEach(navItem => observer.observe(navItem))
-
-
-const reachOutLink = document.querySelector('a.reachout')
-const reachOutForm = document.querySelector('form')
-
 reachOutLink.addEventListener('click', (e) => {
   e.preventDefault()
   reachOutForm.classList.add('visible')
@@ -131,16 +125,104 @@ reachOutLink.addEventListener('click', (e) => {
 
 reachOutForm.addEventListener('submit', e => {
   e.preventDefault()
-  
-  const heroPlane = document.querySelector('#hero .plane-container')
-  heroPlane.classList.remove('fly-plane')
 
   reachOutForm.querySelector('.plane-container').classList.add('run-the-engine')
 
-  // handle form submission plz
+  const name = reachOutForm.querySelector('#name'),
+        email = reachOutForm.querySelector('#email'),
+        message = reachOutForm.querySelector('#msg')
+
+  const values = [name.value, email.value, message.value]
+  let errors = []
+
+  values.forEach((value, i) => {
+    const trimmed = value.trim()
+
+    if(!trimmed.length) {
+      const err = {
+        index: i,
+        msg: 'Cannot be empty'
+      }
+      errors.push(err)
+    }
+
+    if(trimmed.length > 40 && i != 2) {
+      const err = {
+        index: i,
+        msg: 'Maximum length exceeded'
+      }
+      errors.push(err)
+    }
+  })
+
+  if(errors.length) {
+    handleErrors(errors)
+    return
+  }
+
+  const formData = new FormData(reachOutForm);
+
+  sendMeAMsg(formData)
   
-  setTimeout(() => {
-    scrollToTop('hero')
-    heroPlane.classList.add('fly-plane')
-  }, 3000)
 })
+
+async function sendMeAMsg(data) {
+  const heroPlane = document.querySelector('#hero .plane-container')
+  heroPlane.classList.remove('fly-plane')
+
+  const res = await fetch(reachOutForm.action, {
+    method: 'POST',
+    body: data,
+    headers: {
+        'Accept': 'application/json'
+    }
+  })
+
+  const response = await res.json()
+
+  if(response.ok) {
+    setTimeout(() => {
+      scrollToTop('hero')
+      heroPlane.classList.add('fly-plane')
+      handleSuccess({
+        index: -1,
+        msg: "Message sent"
+      })
+      clearUserInput()
+    }, 3000)
+
+    return
+  }
+
+  alert('ne radim zzz')
+}
+
+function clearUserInput() {
+  reachOutForm.reset()
+}
+
+function handleSuccess({msg}) {
+  const tooltip = document.querySelector('.tooltip')
+
+  tooltip.textContent = msg
+  tooltip.classList.add('error')
+
+  setTimeout(() => {tooltip.classList.remove('error')}, 2500)
+}
+
+function handleErrors(errs) {
+  const tooltips = document.querySelectorAll('.tooltip')
+  const inputs = document.querySelectorAll('form input, form textarea')
+
+  errs.forEach((err, i) => {
+    tooltips[i].textContent = err.msg
+    tooltips[i].classList.add('error')
+    inputs[err.index].classList.add('error')
+    console.log(inputs)
+
+    setTimeout(() => {
+      tooltips[i].classList.remove('error')
+      inputs[err.index].classList.remove('error')
+    }, 2500)
+  })
+}

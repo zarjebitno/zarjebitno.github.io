@@ -28,6 +28,7 @@ main {
 main nav {
   width: 4.375rem;
   background: var(--black);
+  z-index: 50;
 }
 
 main nav ul {
@@ -68,7 +69,7 @@ main nav ul li + li {
 
 main nav ul li svg {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 main nav ul li svg path {
@@ -76,7 +77,7 @@ main nav ul li svg path {
 }
 
 main nav .social {
-  width: 35%;
+  width: 43%;
   height: auto;
 }
 
@@ -85,15 +86,89 @@ main nav .social svg {
   height: 100%;
 }
 
+main nav .social svg path {
+  -webkit-transition: all .2s .1s;
+  transition: all .2s .1s;
+}
+
+main nav .social:hover:last-of-type svg path {
+  fill: var(--linkedin);
+}
+
+@media (max-width: 768px) {
+  main nav {
+    width: 100%;
+    height: 5rem;
+    bottom: 0;
+  }
+  main nav ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 80%;
+  }
+  main nav ul li + li {
+    margin-top: 0;
+  }
+}
+
+.errors .tooltip {
+  -webkit-transform: translateX(120%);
+          transform: translateX(120%);
+  opacity: .2;
+  -webkit-transition: opacity 2s, -webkit-transform .5s;
+  transition: opacity 2s, -webkit-transform .5s;
+  transition: transform .5s, opacity 2s;
+  transition: transform .5s, opacity 2s, -webkit-transform .5s;
+}
+
+.errors .tooltip:nth-child(2) {
+  -webkit-transition-delay: .1s;
+          transition-delay: .1s;
+}
+
+.errors .tooltip:nth-child(3) {
+  -webkit-transition-delay: .2s;
+          transition-delay: .2s;
+}
+
+.errors .tooltip.error {
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+  opacity: 1;
+}
+
 #wrapper {
   width: calc(100% - 4.375rem);
   margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  #wrapper {
+    width: 100%;
+  }
 }
 
 #wrapper > section {
   min-height: 100vh;
   background: var(--silver);
   padding: 2rem;
+}
+
+@media (max-width: 1280px) {
+  #wrapper > section {
+    min-height: calc(100vh - 7rem);
+  }
+}
+
+@media (max-width: 480px) {
+  #wrapper > section {
+    padding: 2rem 1rem;
+  }
+}
+
+section.hero_container {
+  overflow-x: hidden;
 }
 
 section.hero_container .plane-container {
@@ -112,12 +187,14 @@ section.hero_container .plane-container.fly-plane svg {
 }
 
 section.hero_container .plane-container svg {
-  width: 10rem;
+  width: 20rem;
   height: auto;
 }
 
-section.hero_container h1.title {
-  padding-top: 7rem;
+@media (max-width: 1600px) {
+  section.hero_container .plane-container svg {
+    width: 10rem;
+  }
 }
 
 section.hero_container .hero_paragraph {
@@ -126,9 +203,15 @@ section.hero_container .hero_paragraph {
 
 /* hero animation start */
 #hero_animation {
-  width: 50%;
   height: 80vh;
   position: relative;
+}
+
+@media (max-width: 1280px) {
+  #hero_animation {
+    height: auto;
+    aspect-ratio: 2.5;
+  }
 }
 
 #hero_animation > .shape {
@@ -367,7 +450,7 @@ section.hero_container .hero_paragraph {
 }
 
 .portfolio_container .projects_inner img {
-  width: 15rem;
+  width: 25%;
   height: 30rem;
   -o-object-fit: cover;
      object-fit: cover;
@@ -382,7 +465,7 @@ section.hero_container .hero_paragraph {
 }
 
 .portfolio_container .projects_inner img.open {
-  width: 50rem;
+  width: 100%;
 }
 
 .projects_controls > div {
@@ -448,9 +531,23 @@ section.contact {
   overflow-x: hidden;
 }
 
+@media (max-width: 768px) {
+  section.contact {
+    padding-bottom: 7rem !important;
+  }
+}
+
 section.contact .container {
-  width: 60%;
+  max-width: 60%;
+  min-width: 1024px;
   margin: auto;
+}
+
+@media (max-width: 1200px) {
+  section.contact .container {
+    min-width: unset;
+    max-width: unset;
+  }
 }
 
 section.contact .container .text-wrap h2 {
@@ -463,34 +560,40 @@ section.contact .container .text-wrap h2 {
   transition: transform 1s, opacity .5s, -webkit-transform 1s;
 }
 
+@media (max-width: 600px) {
+  section.contact .container .text-wrap h2 {
+    font-size: 5rem;
+  }
+}
+
 section.contact .container .text-wrap h2.isVisible {
   -webkit-transform: translateY(0);
           transform: translateY(0);
   opacity: 1;
 }
 
-section.contact .container .text-wrap p {
-  -webkit-transition: opacity .5s, -webkit-transform .7s;
-  transition: opacity .5s, -webkit-transform .7s;
-  transition: transform .7s, opacity .5s;
-  transition: transform .7s, opacity .5s, -webkit-transform .7s;
-  opacity: .4;
+section.contact .container .text-wrap .content-wrap {
+  -webkit-transform: translateY(20px);
+          transform: translateY(20px);
+  opacity: 0;
+  -webkit-transition: opacity .5s, -webkit-transform 1s;
+  transition: opacity .5s, -webkit-transform 1s;
+  transition: transform 1s, opacity .5s;
+  transition: transform 1s, opacity .5s, -webkit-transform 1s;
 }
 
-section.contact .container .text-wrap p:nth-child(even) {
-  -webkit-transform: translateX(2rem);
-          transform: translateX(2rem);
-}
-
-section.contact .container .text-wrap p:nth-child(odd) {
-  -webkit-transform: translateX(-2rem);
-          transform: translateX(-2rem);
-}
-
-section.contact .container .text-wrap p.isVisible {
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
+section.contact .container .text-wrap .content-wrap.isVisible {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
   opacity: 1;
+}
+
+@media (max-width: 600px) {
+  section.contact .container .text-wrap p,
+  section.contact .container .text-wrap a {
+    font-size: 1rem;
+    line-height: 1.25rem;
+  }
 }
 
 section.contact .reachout {
@@ -527,6 +630,15 @@ section.contact form textarea {
   border: 1px solid var(--light-slate-gray);
   resize: none;
   z-index: 5;
+  -webkit-transition: border-color .3s;
+  transition: border-color .3s;
+}
+
+section.contact form input.error,
+section.contact form textarea.error {
+  border-color: #c53030;
+  -webkit-animation: shakeUpPepsi .3s;
+          animation: shakeUpPepsi .3s;
 }
 
 section.contact form.visible {

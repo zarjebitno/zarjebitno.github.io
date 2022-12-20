@@ -14,7 +14,7 @@
 </head>
 <body>
   <main>
-    <nav class="fixed top-0 left-0 h-screen flex flex-col justify-center py-6">
+    <nav class="fixed md:top-0 left-0 md:h-screen flex md:flex-col justify-center py-6">
       <ul class="mx-auto">
         <li data-scrollTo="hero">
           <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -141,13 +141,13 @@
 
         </li>
       </ul>
-      <div class="socials flex justify-between w-5/6 mx-auto mt-auto">
-        <a href="#" class="social">
+      <div class="socials hidden justify-between w-5/6 mx-auto mt-auto md:flex">
+        <a href="https://github.com/zarjebitno" target="_blank" class="social">
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12">
             <path fill="#fff" d="M6 0a6 6 0 110 12A6 6 0 016 0zm0 .98C3.243.98 1 3.223 1 6a5.02 5.02 0 003.437 4.77.594.594 0 00.045.005c.203.01.279-.129.279-.25l-.007-.854c-1.39.303-1.684-.674-1.684-.674-.227-.58-.555-.734-.555-.734-.454-.312.034-.306.034-.306.365.026.604.288.708.43l.058.088c.446.767 1.17.546 1.455.418.046-.325.174-.546.317-.672-1.11-.127-2.277-.558-2.277-2.482 0-.548.195-.996.515-1.348l-.03-.085c-.064-.203-.152-.658.079-1.244l.04-.007c.124-.016.548-.013 1.335.522A4.77 4.77 0 016 3.408c.425.002.853.058 1.252.17.955-.65 1.374-.516 1.374-.516.272.692.1 1.202.05 1.33.32.35.513.799.513 1.347 0 1.93-1.169 2.354-2.283 2.478.18.155.34.462.34.93l-.006 1.378c0 .13.085.282.323.245A5.02 5.02 0 0011 6C11 3.223 8.757.98 6 .98z"/>
           </svg>          
         </a>
-        <a href="#" class="social">
+        <a href="https://www.linkedin.com/in/mateja-jukić29/" target="_blank" class="social">
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M0 24C0 10.7452 10.7452 0 24 0C37.2548 0 48 10.7452 48 24C48 37.2548 37.2548 48 24 48C10.7452 48 0 37.2548 0 24ZM16.9605 19.8778H11.5216V36.2196H16.9605V19.8778ZM17.3188 14.8227C17.2835 13.2204 16.1377 12 14.277 12C12.4164 12 11.2 13.2204 11.2 14.8227C11.2 16.3918 12.3805 17.6473 14.2064 17.6473H14.2412C16.1377 17.6473 17.3188 16.3918 17.3188 14.8227ZM36.5754 26.8497C36.5754 21.8303 33.8922 19.4941 30.3131 19.4941C27.4254 19.4941 26.1326 21.0802 25.4107 22.1929V19.8783H19.9711C20.0428 21.4117 19.9711 36.22 19.9711 36.22H25.4107V27.0934C25.4107 26.605 25.446 26.1178 25.5898 25.7681C25.9829 24.7924 26.8779 23.7822 28.3805 23.7822C30.3494 23.7822 31.1365 25.2807 31.1365 27.4767V36.2196H36.5752L36.5754 26.8497Z" fill="#fff"/>
           </svg>            
@@ -155,11 +155,11 @@
       </div>
     </nav>
     <div id="wrapper">
-      <section id="hero" class="hero_container flex justify-between" data-order="0">
+      <section id="hero" class="hero_container flex flex-col justify-between xl:flex-row" data-order="0">
         <div class="text-wrap">
-          <h1 class="title uppercase font-bold text-8xl">Frontend</br> Developer</h1>
+          <h1 class="title uppercase font-bold text-6xl lg:text-8xl mt-12 lg:mt-28">Frontend</br> Developer</h1>
           <p class="hero_paragraph text-3xl">I like turtles</p>
-          <div class="plane-container fly-plane">
+          <div class="plane-container fly-plane hidden xl:block">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             width="1131.53px" height="379.304px" viewBox="0 0 1131.53 379.304" enable-background="new 0 0 1131.53 379.304"
             xml:space="preserve" class="plane">
@@ -168,7 +168,7 @@
             </svg>  
           </div>
         </div>
-        <div id="hero_animation" data-configuration="1" data-roundness="1" class="self-center">
+        <div id="hero_animation" data-configuration="1" data-roundness="1" class="self-center w-full xl:w-3/6">
           <div class="shape"></div>
           <div class="shape"></div>
           <div class="shape"></div>
@@ -179,7 +179,7 @@
         </div>
       </section>
       <section id="portfolio" class="portfolio_container" data-order="1">
-        <h2 class="title">Some of my projects</h2>
+        <h2 class="title text-3xl mb-8 font-bold uppercase">Some of my projects</h2>
         <div class="projects_wrapper overflow-hidden">
           <div class="projects_inner flex gap-6" data-translate="0">
             <img src="assets/images/projects/aeriform.png" alt="Aeriform Cinema"/>
@@ -302,22 +302,23 @@
         </div>
       </section>
       <section id="contact" data-order="3" class="contact flex items-center">
-        <div class="container flex justify-between">
-          <div class="text-wrap">
+        <div class="container flex flex-col lg:flex-row justify-between items-start">
+          <div class="text-wrap w-full lg:w-7/12">
             <h2 class="text-8xl font-bold mb-6 uppercase">Hey!</h2>
-            <p class="text-xl">Glad you stopped by</p>
-            <p class="text-xl">My name is Mateja and I am a Web developer based in Serbia. </p>
-            <p class="text-xl">Sample text 1</p>
-            <p class="text-xl">Sample text 2</p>
-            <p class="text-xl">Sample text 3</p>
-            <a href="#" class="reachout flex mt-6 text-xl items-center">
+            <div class="content-wrap">
+              <p class="text-xl">Glad you stopped by!</p>
+              <p class="text-xl">My name is Mateja and I am a Web developer based in Serbia. </p>
+              <p class="text-xl">With more than three years of professional experience I strive to create best user experience in various frameworks.</p>
+              <p class="text-xl mt-4">Additional questions? Contact me!</p>
+            </div>
+            <a href="#" class="reachout flex mt-8 lg:mt-16 text-xl items-center">
               Reach out                  
             </a>
           </div>
-          <form action="#" class="flex flex-col w-2/6 opacity-0 relative">
-            <input type="text" id="" placeholder="Name" class="p-2 pl-4 rounded-3xl"/>
-            <input type="email" id="" placeholder="Email address" class="p-2 pl-4 rounded-3xl my-4"/>
-            <textarea placeholder="Sup" cols="30" rows="7" class="p-2 pl-4 rounded-3xl"></textarea>
+          <form action="https://formspree.io/f/mlekrdpz" method="POST" class="flex flex-col w-full mt-6 lg:w-2/6 lg:mt-0 opacity-1 lg:opacity-0 relative">
+            <input type="text" name="name" id="name" placeholder="Name" class="p-2 pl-4 rounded-3xl w-full"/>
+            <input type="email" name="email" id="email" placeholder="Email address" class="p-2 pl-4 rounded-3xl my-4 w-full"/>
+            <textarea placeholder="Sup" name="msg" id="msg" cols="30" rows="7" class="p-2 pl-4 rounded-3xl w-full"></textarea>
             <button class="border-none p-2 w-48 ml-auto mt-4 rounded-3xl text-white">Submit</button>
 
             <div class="plane-container absolute w-96">
@@ -331,6 +332,11 @@
           </form>
         </div>
       </section>
+      <div class="errors z-20 fixed right-6 top-6 rounded-3xl">
+        <div class="tooltip bg-red-700 rounded-3xl px-6 py-2 text-white">lorem ipsum kurat</div>
+        <div class="tooltip bg-red-700 my-4 rounded-3xl px-6 py-2 text-white">lorem ipsum kurat</div>
+        <div class="tooltip bg-red-700 rounded-3xl px-6 py-2 text-white">lorem ipsum kurat</div>
+      </div>
     </div>
   </main>
   <script src="assets/js/main.js"></script>
