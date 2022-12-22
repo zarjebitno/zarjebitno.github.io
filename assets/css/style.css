@@ -98,8 +98,9 @@ main nav .social:hover:last-of-type svg path {
 @media (max-width: 768px) {
   main nav {
     width: 100%;
-    height: 5rem;
+    height: 3rem;
     bottom: 0;
+    padding: .7rem 0 !important;
   }
   main nav ul {
     display: -webkit-box;
@@ -468,6 +469,12 @@ section.hero_container .hero_paragraph {
   width: 100%;
 }
 
+@media (max-width: 768px) {
+  .portfolio_container .projects_inner img {
+    width: 100%;
+  }
+}
+
 .projects_controls > div {
   cursor: pointer;
 }
@@ -497,6 +504,12 @@ section.hero_container .hero_paragraph {
   gap: 2rem;
   min-height: unset !important;
   padding: 6rem 0 !important;
+}
+
+@media (max-width: 600px) {
+  .skills {
+    gap: 1rem;
+  }
 }
 
 .skills .skill {
@@ -647,8 +660,12 @@ section.contact form.visible {
           animation: .3s shakeUpPepsi .2s linear;
 }
 
-section.contact form button {
+section.contact form .btn-status-wrap button {
   background: var(--mandarin);
+}
+
+section.contact form .btn-status-wrap svg {
+  fill: var(--mandarin);
 }
 
 section.contact form .plane-container {

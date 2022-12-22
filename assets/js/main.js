@@ -168,7 +168,10 @@ reachOutForm.addEventListener('submit', e => {
 
 async function sendMeAMsg(data) {
   const heroPlane = document.querySelector('#hero .plane-container')
+  const loadingIcon = document.querySelector('.btn-status-wrap .loading-icon')
+
   heroPlane.classList.remove('fly-plane')
+  loadingIcon.classList.add('opacity-100')
 
   const res = await fetch(reachOutForm.action, {
     method: 'POST',
@@ -182,6 +185,7 @@ async function sendMeAMsg(data) {
 
   if(response.ok) {
     setTimeout(() => {
+      loadingIcon.classList.remove('opacity-100')
       scrollToTop('hero')
       heroPlane.classList.add('fly-plane')
       handleSuccess({
